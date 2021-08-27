@@ -1,0 +1,88 @@
+.ticket {
+  padding: 3px;
+  border-radius: 2px;
+  align-content: space-between;
+  justify-content: space-between;
+}
+
+.ticketList {
+  height: 80vh;
+  overflow: auto;
+  background-color: Azure;
+}
+
+.ticketLi {
+  margin-bottom: 7px;
+}
+
+.ticketDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+span {
+  width: 25%;
+}
+
+#id-span {
+  width: 7%;
+  font-weight: bold;
+  flex-shrink: 2;
+}
+
+#type-span {
+  width: 23%;
+}
+
+#status-span {
+  width: 45%
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: limegreen;
+}
+
+.blue {
+  color: blue;
+}
+
+h2 {
+  margin-left: 15px;
+}
+
+@media (max-width: 460px) {
+  .ticketDiv {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: "id  status status status" "type type type date";
+    /* flex-direction: column;*/
+  }
+
+  #id-span {
+    grid-area: id;
+  }
+
+  #type-span {
+    grid-area: type;
+  }
+
+  #status-span {
+    grid-area: status;
+  }
+
+  #date-span {
+    grid-area: date
+  }
+
+  span {
+    width: auto;
+    font-size: 0.8rem;
+  }
+}

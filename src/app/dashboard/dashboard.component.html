@@ -1,0 +1,15 @@
+<h2>Список тикетов:</h2>
+<mat-nav-list class="ticketList">
+  <mat-list-item class="ticketLi" *ngFor="let ticket of tickets; last as last">
+    <a matLine class="ticket" routerLink="/detail/{{ticket.id}}">
+      <div class="ticketDiv">
+        <span id="id-span">id: {{ticket.id}}.</span>
+        <span id="type-span">Тип: {{ticket.ticketType}}</span>
+        <span id="status-span">Статус: <span
+          [ngClass]="{ red: ticket.status === 'НЕВОЗМОЖНО_ОБРАБОТАТЬ', green: ticket.status === 'ОБРАБОТАНО', blue: ticket.status === 'НЕ_ОБРАБОТАНО' }">{{ticket.status}} </span></span>
+        <span id="date-span">Дата: {{ticket.date | date: 'dd.MM.y, HH:mm'}}</span>
+      </div>
+    </a>
+    <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+  </mat-list-item>
+</mat-nav-list>

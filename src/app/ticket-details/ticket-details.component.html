@@ -1,0 +1,82 @@
+<div class="ticket" *ngIf="ticket">
+  <button mat-raised-button (click)="goBack()">Назад</button>
+  <div class="ticketInfo">
+    <span class="ticketTheme">Id: {{ticket.id}}</span>
+    <span class="ticketTheme">Тип: {{ticket.ticketType}}</span>
+    <span class="ticketTheme">Статус: {{ticket.status}}</span>
+    <span class="ticketTheme">Дата создания: {{ticket.date | date: 'dd.MM.y, HH:mm'}}</span>
+  </div>
+
+  <div class="themeDiv">
+    <span class="ticketTheme">Тема: {{ticket.theme}}</span>
+    <span>Сообщение:</span>
+    <p class="ticketMessage">{{ticket.message}}</p>
+  </div>
+
+  <div *ngIf="ticket.ticketType === 'ЖАЛОБА'">
+    <span>Категория: {{ticket.complaintType}}</span>
+  </div>
+
+  <div class="contactDiv">
+    <span class="ticketTheme">Данные отправителя:</span>
+    <span class="contactInfo">Имя: {{ticket.name}}</span>
+    <span class="contactInfo">Контакт: {{ticket.contact}}</span>
+    <span class="contactInfo">Тип контакта: {{ticket.contactType}}</span>
+    <div *ngIf="ticket.ticketType === 'ЗАПРОС УСЛУГИ'" class="flexColumn">
+      <span>Тип услуги: {{ticket.serviceType}}</span>
+      <span>Должность клиента: {{ticket.position}}</span>
+    </div>
+    <div *ngIf="ticket.ticketType === 'ЗАПРОС ЗВОНКА'">
+      <span>Для связи: {{ticket.phoneToCall}}</span>
+    </div>
+  </div>
+
+  <div class="processingSection">
+    <span class="ticketTheme">Обработка тикета</span>
+
+    <mat-form-field>
+      <mat-label>Комментарий обработки:</mat-label>
+      <textarea matInput [(ngModel)]="comment" placeholder="Комментарий.."></textarea>
+    </mat-form-field>
+
+    <div class="grid-div">
+      <div class="flexColumn">
+        <span>Изменение статуса</span>
+        <mat-select class="mat-select" [(value)]="tempStatus" placeholder="Изменить статус тикета">
+          <mat-option value="ОБРАБОТАНО"> ОБРАБОТАНО</mat-option>
+          <mat-option value="НЕВОЗМОЖНО_ОБРАБОТАТЬ"> НЕВОЗМОЖНО_ОБРАБОТАТЬ</mat-option>
+          <mat-option value="НЕ_ОБРАБОТАНО"> НЕ_ОБРАБОТАНО</mat-option>
+          <mat-option value="*не изменять статус*"> *не изменять статус*</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="flexColumn">
+        <span>Пользователь</span>
+        <mat-select class="mat-select" [(value)]="tempOperator" placeholder="Выбери свою позицию">
+          <mat-option value="Tier 1 Admin">Tier 1 Admin</mat-option>
+          <mat-option value="Tier 2 Admin">Tier 2 Admin</mat-option>
+          <mat-option value="Tier 3 Admin">Tier 3 Admin</mat-option>
+        </mat-select>
+      </div>
+    </div>
+
+  </div>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!tempOperator || !comment">Сохранить</button>
+
+  <div>
+    <span class="ticketTheme">История изменений и комментариев:</span>
+    <ul>
+      <li *ngFor="let info of ticket.operatedInfo" class="operatedInfo">
+        <span>Дата: {{info.date | date: 'dd.MM.y, HH:mm:ss'}}</span>
+        <span>Оператор: {{info.operator}}</span>
+        <span>Комментарий: {{info.comment}}</span>
+        <span>Изменение статуса тикета: {{info.status}}</span>
+      </li>
+    </ul>
+
+  </div>
+</div>
+
+
+
+
